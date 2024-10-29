@@ -1,0 +1,27 @@
+.battle-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .battle-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 10px;
+
+    .card {
+      width: 50%;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .battle-container {
+    .card {
+      width: 35%;
+    }
+  }
+}
