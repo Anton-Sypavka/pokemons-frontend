@@ -8,6 +8,14 @@ const battle = {
   getBattle: (id) => {
     return HttpClient.get(`/battle/${id}`);
   },
+
+  attack: (data) => {
+    return HttpClient.post(`/battle/attack`, data);
+  },
+
+  quit: (id) => {
+    return HttpClient.get(`/battle/quit/${id}`);
+  },
 }
 
 export default battle;

@@ -1,14 +1,17 @@
+import { Spinner } from "../../atoms/spinner";
 import './style.scss';
 
 export const PokemonCard = ({
   pokemon: {_id, name, hp, attack, defense, speed, image, type },
   isActive,
   onClick,
+  loading
 }) => {
   const active = isActive ? 'card--active' : '';
 
   return (
     <div className={`card ${active}`} onClick={onClick}>
+      {loading && <Spinner/>}
       <div className="card__image">
         <img src={image.hires} alt="pokemon-image" />
       </div>

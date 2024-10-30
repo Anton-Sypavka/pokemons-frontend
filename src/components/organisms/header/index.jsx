@@ -19,7 +19,7 @@ export const Header = () => {
   const battleLoading = useSelector(battleLoadingSelector);
   const error = useSelector(userErrorSelector);
   const selectedPokemon = useSelector(selectedPokemonSelector);
-  const isStartBtnVisible = selectedPokemon && !location.pathname.startsWith('/battle');
+  const isStartBtnVisible = selectedPokemon && !location.pathname.startsWith('/battle') && user;
 
   const onAuthWithMetamask = () => {
     dispatch(loginWithMetamask());
