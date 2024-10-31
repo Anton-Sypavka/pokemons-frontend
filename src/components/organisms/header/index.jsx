@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Logo } from '../../atoms/logo';
 import { Button } from '../../atoms/button';
@@ -9,11 +10,14 @@ import { battleLoadingSelector, selectedPokemonSelector } from '../../../store/s
 import { startBattle } from "../../../store/battle-slice";
 import './style.scss';
 
+const LOCAL_ERROR = 'Please install metamask wallet'
+
 export const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [localError, setLocalError] = useState(null);
   const user = useSelector(userSelector);
   const loading = useSelector(userLoadingSelector);
   const battleLoading = useSelector(battleLoadingSelector);
@@ -22,6 +26,10 @@ export const Header = () => {
   const isStartBtnVisible = selectedPokemon && !location.pathname.startsWith('/battle') && user;
 
   const onAuthWithMetamask = () => {
+    if (!window.ethereum?.isMetaMask) {
+      setLocalError(LOCAL_ERROR);
+      return;
+    }
     dispatch(loginWithMetamask());
   }
 
@@ -30,6 +38,7 @@ export const Header = () => {
   }
 
   const onClearError = () => {
+    setLocalError(null);
     dispatch(clearError());
   }
 
@@ -56,7 +65,7 @@ export const Header = () => {
           }
         </div>
       </nav>
-      { error && <Alert message={error} type='error' closable onClose={onClearError}/> }
+      { (error || localError) && <Alert message={error || localError} type='error' closable onClose={onClearError}/> }
     </header>
   )
 }
